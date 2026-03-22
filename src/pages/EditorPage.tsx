@@ -7,11 +7,13 @@ import rehypeRaw from 'rehype-raw';
 import { FiEye, FiEdit, FiImage, FiSave } from 'react-icons/fi';
 import { fetchPost, createPost, updatePost, uploadImage } from '../lib/api';
 import { CATEGORIES } from '../lib/categories';
+import { useAuth } from '../lib/AuthContext';
 import styles from './EditorPage.module.css';
 
 export default function EditorPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const isEdit = Boolean(id);
 
@@ -22,6 +24,10 @@ export default function EditorPage() {
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
+    if (!isAdmin) {
+      navigate('/');
+      return;
+    }
     if (isEdit && id) {
       fetchPost(id).then((post) => {
         setTitle(post.title);
@@ -29,7 +35,9 @@ export default function EditorPage() {
         setCategory(post.category);
       });
     }
-  }, [id, isEdit]);
+  }, [id, isEdit, isAdmin, navigate]);
+
+  if (!isAdmin) return null;
 
   const handleImageUpload = async () => {
     const input = document.createElement('input');

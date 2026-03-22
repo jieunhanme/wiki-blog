@@ -7,12 +7,14 @@ import rehypeRaw from 'rehype-raw';
 import { FiEdit2, FiTrash2, FiArrowLeft } from 'react-icons/fi';
 import { fetchPost, deletePost } from '../lib/api';
 import { getCategoryById } from '../lib/categories';
+import { useAuth } from '../lib/AuthContext';
 import type { Post } from '../lib/types';
 import styles from './PostPage.module.css';
 
 export default function PostPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { isAdmin } = useAuth();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -60,14 +62,16 @@ export default function PostPage() {
             <span>(수정: {formatDate(post.updated_at)})</span>
           )}
         </div>
-        <div className={styles.actions}>
-          <Link to={`/edit/${post.id}`} className={styles.editBtn}>
-            <FiEdit2 size={14} /> 수정
-          </Link>
-          <button onClick={handleDelete} className={styles.deleteBtn}>
-            <FiTrash2 size={14} /> 삭제
-          </button>
-        </div>
+        {isAdmin && (
+          <div className={styles.actions}>
+            <Link to={`/edit/${post.id}`} className={styles.editBtn}>
+              <FiEdit2 size={14} /> 수정
+            </Link>
+            <button onClick={handleDelete} className={styles.deleteBtn}>
+              <FiTrash2 size={14} /> 삭제
+            </button>
+          </div>
+        )}
       </header>
 
       <div className="markdown-body">

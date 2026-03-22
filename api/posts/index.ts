@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { supabase } from '../lib/supabase';
+import { verifyAdmin } from '../lib/auth';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method === 'GET') {
@@ -25,6 +26,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method === 'POST') {
+    if (!(await verifyAdmin(req))) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+
     const { title, content, category } = req.body;
 
     if (!title || !content || !category) {

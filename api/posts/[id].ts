@@ -1,5 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { supabase } from '../lib/supabase';
+import { verifyAdmin } from '../lib/auth';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { id } = req.query;
@@ -20,6 +21,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method === 'PUT') {
+    if (!(await verifyAdmin(req))) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+
     const { title, content, category } = req.body;
 
     const { data, error } = await supabase
@@ -34,6 +39,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   if (req.method === 'DELETE') {
+    if (!(await verifyAdmin(req))) {
+      return res.status(403).json({ error: 'Forbidden' });
+    }
+
     const { error } = await supabase
       .from('posts')
       .delete()

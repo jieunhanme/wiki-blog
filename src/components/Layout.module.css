@@ -74,6 +74,31 @@
   border-color: var(--accent);
 }
 
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.authBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text-secondary);
+  transition: all 0.15s;
+}
+
+.authBtn:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
 .writeBtn {
   display: flex;
   align-items: center;
