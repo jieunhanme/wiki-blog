@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -17,6 +17,9 @@ export default function PostPage() {
   const { isAdmin } = useAuth();
   const [post, setPost] = useState<Post | null>(null);
   const [loading, setLoading] = useState(true);
+  const htmlRef = useRef<HTMLDivElement>(null);
+
+  const isHtml = post?.content.includes("<style>") ?? false;
 
   useEffect(() => {
     if (!id) return;
@@ -25,6 +28,17 @@ export default function PostPage() {
       .catch(() => navigate("/"))
       .finally(() => setLoading(false));
   }, [id, navigate]);
+
+  useEffect(() => {
+    if (!isHtml || !htmlRef.current) return;
+    const container = htmlRef.current;
+    const scripts = container.querySelectorAll("script");
+    scripts.forEach((orig) => {
+      const script = document.createElement("script");
+      script.textContent = orig.textContent;
+      orig.replaceWith(script);
+    });
+  }, [isHtml, post?.content]);
 
   const handleDelete = async () => {
     if (!id || !window.confirm("정말 삭제하시겠습니까?")) return;
@@ -80,14 +94,22 @@ export default function PostPage() {
         )}
       </header>
 
-      <div className="markdown-body">
-        <ReactMarkdown
-          remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight, rehypeRaw]}
-        >
-          {post.content}
-        </ReactMarkdown>
-      </div>
+      {isHtml ? (
+        <div
+          ref={htmlRef}
+          className={styles.htmlContent}
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      ) : (
+        <div className="markdown-body">
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeHighlight, rehypeRaw]}
+          >
+            {post.content}
+          </ReactMarkdown>
+        </div>
+      )}
     </article>
   );
 }

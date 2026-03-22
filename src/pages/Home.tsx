@@ -30,7 +30,7 @@ export default function Home() {
       : "전체 글";
 
   return (
-    <div>
+    <div className={styles.container}>
       <h1 className={styles.title}>{title}</h1>
 
       {loading && <p className={styles.message}>불러오는 중...</p>}
