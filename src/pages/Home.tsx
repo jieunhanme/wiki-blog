@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
-import { fetchPosts } from '../lib/api';
-import { getCategoryById } from '../lib/categories';
-import PostCard from '../components/PostCard';
-import type { Post } from '../lib/types';
-import styles from './Home.module.css';
+import { useState, useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { fetchPosts } from "../lib/api";
+import { getCategoryById } from "../lib/categories";
+import PostCard from "../components/PostCard";
+import type { Post } from "../lib/types";
+import styles from "./Home.module.css";
 
 export default function Home() {
   const { categoryId } = useParams<{ categoryId: string }>();
   const [searchParams] = useSearchParams();
-  const search = searchParams.get('search') || '';
+  const search = searchParams.get("search") || "";
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +27,7 @@ export default function Home() {
     ? `"${search}" 검색 결과`
     : categoryId
       ? getCategoryById(categoryId).label
-      : '전체 글';
+      : "전체 글";
 
   return (
     <div>

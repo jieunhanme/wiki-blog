@@ -1,9 +1,16 @@
-import { useState, type ReactNode } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FiSearch, FiPlus, FiMenu, FiX, FiLogIn, FiLogOut } from 'react-icons/fi';
-import { useAuth } from '../lib/AuthContext';
-import Sidebar from './Sidebar';
-import styles from './Layout.module.css';
+import { useState, type ReactNode } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  FiSearch,
+  FiPlus,
+  FiMenu,
+  FiX,
+  FiLogIn,
+  FiLogOut,
+} from "react-icons/fi";
+import { useAuth } from "../lib/AuthContext";
+import Sidebar from "./Sidebar";
+import styles from "./Layout.module.css";
 
 interface Props {
   children: ReactNode;
@@ -11,7 +18,7 @@ interface Props {
 
 export default function Layout({ children }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { isAdmin, loading, signInWithGoogle, signOut } = useAuth();
 
@@ -58,26 +65,38 @@ export default function Layout({ children }: Props) {
             </Link>
           )}
 
-          {!loading && (
-            isAdmin ? (
-              <button onClick={signOut} className={styles.authBtn} title="로그아웃">
+          {!loading &&
+            (isAdmin ? (
+              <button
+                onClick={signOut}
+                className={styles.authBtn}
+                title="로그아웃"
+              >
                 <FiLogOut size={18} />
               </button>
             ) : (
-              <button onClick={signInWithGoogle} className={styles.authBtn} title="로그인">
+              <button
+                onClick={signInWithGoogle}
+                className={styles.authBtn}
+                title="로그인"
+              >
                 <FiLogIn size={18} />
               </button>
-            )
-          )}
+            ))}
         </div>
       </header>
 
       <div className={styles.body}>
-        <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
+        <aside
+          className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ""}`}
+        >
           <Sidebar onNavigate={() => setSidebarOpen(false)} />
         </aside>
         {sidebarOpen && (
-          <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />
+          <div
+            className={styles.overlay}
+            onClick={() => setSidebarOpen(false)}
+          />
         )}
         <main className={styles.main}>{children}</main>
       </div>

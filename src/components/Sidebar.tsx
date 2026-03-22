@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom';
-import { FiHome, FiFolder } from 'react-icons/fi';
-import { CATEGORIES } from '../lib/categories';
-import styles from './Sidebar.module.css';
+import { NavLink } from "react-router-dom";
+import { FiHome, FiFolder } from "react-icons/fi";
+import { CATEGORIES } from "../lib/categories";
+import styles from "./Sidebar.module.css";
 
 interface Props {
   onNavigate: () => void;
@@ -14,7 +14,9 @@ export default function Sidebar({ onNavigate }: Props) {
         <NavLink
           to="/"
           end
-          className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
+          className={({ isActive }) =>
+            `${styles.link} ${isActive ? styles.active : ""}`
+          }
           onClick={onNavigate}
         >
           <FiHome size={16} />
@@ -28,7 +30,9 @@ export default function Sidebar({ onNavigate }: Props) {
           <NavLink
             key={cat.id}
             to={`/category/${cat.id}`}
-            className={({ isActive }) => `${styles.link} ${isActive ? styles.active : ''}`}
+            className={({ isActive }) =>
+              `${styles.link} ${isActive ? styles.active : ""}`
+            }
             onClick={onNavigate}
           >
             <FiFolder size={16} />

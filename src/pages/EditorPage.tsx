@@ -1,14 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeRaw from 'rehype-raw';
-import { FiEye, FiEdit, FiImage, FiSave } from 'react-icons/fi';
-import { fetchPost, createPost, updatePost, uploadImage } from '../lib/api';
-import { CATEGORIES } from '../lib/categories';
-import { useAuth } from '../lib/AuthContext';
-import styles from './EditorPage.module.css';
+import { useState, useEffect, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
+import { FiEye, FiEdit, FiImage, FiSave } from "react-icons/fi";
+import { fetchPost, createPost, updatePost, uploadImage } from "../lib/api";
+import { CATEGORIES } from "../lib/categories";
+import { useAuth } from "../lib/AuthContext";
+import styles from "./EditorPage.module.css";
 
 export default function EditorPage() {
   const { id } = useParams<{ id: string }>();
@@ -17,15 +17,15 @@ export default function EditorPage() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const isEdit = Boolean(id);
 
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0].id);
   const [preview, setPreview] = useState(false);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     if (!isAdmin) {
-      navigate('/');
+      navigate("/");
       return;
     }
     if (isEdit && id) {
@@ -40,9 +40,9 @@ export default function EditorPage() {
   if (!isAdmin) return null;
 
   const handleImageUpload = async () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
     input.onchange = async (e) => {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (!file) return;
@@ -51,10 +51,11 @@ export default function EditorPage() {
         const imageMarkdown = `![${file.name}](${url})`;
         const textarea = textareaRef.current;
         const pos = textarea?.selectionStart ?? content.length;
-        const newContent = content.slice(0, pos) + imageMarkdown + content.slice(pos);
+        const newContent =
+          content.slice(0, pos) + imageMarkdown + content.slice(pos);
         setContent(newContent);
       } catch (err) {
-        alert('이미지 업로드에 실패했습니다: ' + (err as Error).message);
+        alert("이미지 업로드에 실패했습니다: " + (err as Error).message);
       }
     };
     input.click();
@@ -63,7 +64,7 @@ export default function EditorPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) {
-      alert('제목과 내용을 입력해주세요.');
+      alert("제목과 내용을 입력해주세요.");
       return;
     }
 
@@ -77,7 +78,7 @@ export default function EditorPage() {
         navigate(`/post/${post.id}`);
       }
     } catch (err) {
-      alert('저장에 실패했습니다: ' + (err as Error).message);
+      alert("저장에 실패했습니다: " + (err as Error).message);
     } finally {
       setSaving(false);
     }
@@ -92,25 +93,32 @@ export default function EditorPage() {
           className={styles.select}
         >
           {CATEGORIES.map((cat) => (
-            <option key={cat.id} value={cat.id}>{cat.label}</option>
+            <option key={cat.id} value={cat.id}>
+              {cat.label}
+            </option>
           ))}
         </select>
 
         <div className={styles.toolbarRight}>
-          <button type="button" onClick={handleImageUpload} className={styles.toolBtn} title="이미지 삽입">
+          <button
+            type="button"
+            onClick={handleImageUpload}
+            className={styles.toolBtn}
+            title="이미지 삽입"
+          >
             <FiImage size={18} />
           </button>
           <button
             type="button"
             onClick={() => setPreview(!preview)}
-            className={`${styles.toolBtn} ${preview ? styles.toolBtnActive : ''}`}
-            title={preview ? '편집' : '미리보기'}
+            className={`${styles.toolBtn} ${preview ? styles.toolBtnActive : ""}`}
+            title={preview ? "편집" : "미리보기"}
           >
             {preview ? <FiEdit size={18} /> : <FiEye size={18} />}
           </button>
           <button type="submit" className={styles.saveBtn} disabled={saving}>
             <FiSave size={16} />
-            {saving ? '저장 중...' : isEdit ? '수정' : '저장'}
+            {saving ? "저장 중..." : isEdit ? "수정" : "저장"}
           </button>
         </div>
       </div>

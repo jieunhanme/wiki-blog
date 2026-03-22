@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -18,14 +20,17 @@
   --danger: #d85a30;
   --danger-bg: #faece7;
   --radius: 8px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.08);
   --sidebar-width: 260px;
   --header-height: 56px;
 }
 
 body {
-  font-family: 'Noto Sans KR', -apple-system, sans-serif;
+  font-family:
+    "Noto Sans KR",
+    -apple-system,
+    sans-serif;
   background: var(--bg);
   color: var(--text-primary);
   line-height: 1.7;
@@ -46,7 +51,9 @@ button {
   cursor: pointer;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font-family: inherit;
 }
 
@@ -56,13 +63,37 @@ input, textarea, select {
   line-height: 1.8;
 }
 
-.markdown-body h1 { font-size: 1.8em; margin: 1.5em 0 0.6em; font-weight: 700; }
-.markdown-body h2 { font-size: 1.4em; margin: 1.3em 0 0.5em; font-weight: 700; }
-.markdown-body h3 { font-size: 1.2em; margin: 1.2em 0 0.4em; font-weight: 600; }
-.markdown-body p { margin: 0.6em 0; }
-.markdown-body ul, .markdown-body ol { padding-left: 1.5em; margin: 0.6em 0; }
-.markdown-body li { margin: 0.3em 0; }
-.markdown-body img { max-width: 100%; border-radius: var(--radius); margin: 1em 0; }
+.markdown-body h1 {
+  font-size: 1.8em;
+  margin: 1.5em 0 0.6em;
+  font-weight: 700;
+}
+.markdown-body h2 {
+  font-size: 1.4em;
+  margin: 1.3em 0 0.5em;
+  font-weight: 700;
+}
+.markdown-body h3 {
+  font-size: 1.2em;
+  margin: 1.2em 0 0.4em;
+  font-weight: 600;
+}
+.markdown-body p {
+  margin: 0.6em 0;
+}
+.markdown-body ul,
+.markdown-body ol {
+  padding-left: 1.5em;
+  margin: 0.6em 0;
+}
+.markdown-body li {
+  margin: 0.3em 0;
+}
+.markdown-body img {
+  max-width: 100%;
+  border-radius: var(--radius);
+  margin: 1em 0;
+}
 
 .markdown-body pre {
   background: #1e1e2e;
@@ -71,13 +102,13 @@ input, textarea, select {
   border-radius: var(--radius);
   overflow-x: auto;
   margin: 1em 0;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 13px;
   line-height: 1.6;
 }
 
 .markdown-body code {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 0.9em;
 }
 
@@ -103,7 +134,8 @@ input, textarea, select {
   margin: 1em 0;
 }
 
-.markdown-body th, .markdown-body td {
+.markdown-body th,
+.markdown-body td {
   border: 1px solid var(--border);
   padding: 8px 12px;
   text-align: left;
@@ -121,4 +153,6 @@ input, textarea, select {
 }
 
 /* highlight.js 테마 오버라이드 */
-.hljs { background: transparent !important; }
+.hljs {
+  background: transparent !important;
+}

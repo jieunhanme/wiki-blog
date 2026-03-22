@@ -1,8 +1,8 @@
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import PostPage from './pages/PostPage';
-import EditorPage from './pages/EditorPage';
+import { Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import PostPage from "./pages/PostPage";
+import EditorPage from "./pages/EditorPage";
 
 export default function App() {
   return (

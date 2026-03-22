@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeRaw from 'rehype-raw';
-import { FiEdit2, FiTrash2, FiArrowLeft } from 'react-icons/fi';
-import { fetchPost, deletePost } from '../lib/api';
-import { getCategoryById } from '../lib/categories';
-import { useAuth } from '../lib/AuthContext';
-import type { Post } from '../lib/types';
-import styles from './PostPage.module.css';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
+import { FiEdit2, FiTrash2, FiArrowLeft } from "react-icons/fi";
+import { fetchPost, deletePost } from "../lib/api";
+import { getCategoryById } from "../lib/categories";
+import { useAuth } from "../lib/AuthContext";
+import type { Post } from "../lib/types";
+import styles from "./PostPage.module.css";
 
 export default function PostPage() {
   const { id } = useParams<{ id: string }>();
@@ -22,14 +22,14 @@ export default function PostPage() {
     if (!id) return;
     fetchPost(id)
       .then(setPost)
-      .catch(() => navigate('/'))
+      .catch(() => navigate("/"))
       .finally(() => setLoading(false));
   }, [id, navigate]);
 
   const handleDelete = async () => {
-    if (!id || !window.confirm('정말 삭제하시겠습니까?')) return;
+    if (!id || !window.confirm("정말 삭제하시겠습니까?")) return;
     await deletePost(id);
-    navigate('/');
+    navigate("/");
   };
 
   if (loading) return <p className={styles.loading}>불러오는 중...</p>;
@@ -38,9 +38,12 @@ export default function PostPage() {
   const category = getCategoryById(post.category);
   const formatDate = (dateStr: string) => {
     const d = new Date(dateStr);
-    return d.toLocaleDateString('ko-KR', {
-      year: 'numeric', month: 'long', day: 'numeric',
-      hour: '2-digit', minute: '2-digit',
+    return d.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -52,7 +55,10 @@ export default function PostPage() {
       </Link>
 
       <header className={styles.header}>
-        <span className={styles.category} style={{ background: category.color + '20', color: category.color }}>
+        <span
+          className={styles.category}
+          style={{ background: category.color + "20", color: category.color }}
+        >
           {category.label}
         </span>
         <h1 className={styles.title}>{post.title}</h1>
