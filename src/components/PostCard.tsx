@@ -20,7 +20,13 @@ export default function PostCard({ post }: Props) {
   };
 
   const getExcerpt = (content: string) => {
-    const text = content.replace(/[#*`>\[\]!_~|]/g, "").replace(/\n+/g, " ");
+    const text = content
+      .replace(/<style[\s\S]*?<\/style>/gi, "")
+      .replace(/<script[\s\S]*?<\/script>/gi, "")
+      .replace(/<[^>]+>/g, "")
+      .replace(/[#*`>\[\]!_~|]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
     return text.length > 120 ? text.slice(0, 120) + "..." : text;
   };
 

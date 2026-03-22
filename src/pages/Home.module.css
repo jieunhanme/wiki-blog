@@ -1,3 +1,8 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
 .title {
   font-size: 24px;
   font-weight: 700;
