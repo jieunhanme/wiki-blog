@@ -10,7 +10,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\" \"api/**/*.ts\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\" \"api/**/*.ts\"",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p api/tsconfig.json",
     "check": "pnpm format:check && pnpm lint && pnpm typecheck"
   },
   "dependencies": {
