@@ -29,3 +29,9 @@
   padding: 40px 0;
   text-align: center;
 }
+
+@media (max-width: 1024px) {
+  .container {
+    max-width: 100%;
+  }
+}
