@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { supabase } from "../lib/supabase";
-import { verifyAdmin } from "../lib/auth";
+import { supabase } from "../lib/supabase.js";
+import { verifyAdmin } from "../lib/auth.js";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const { id } = req.query;
